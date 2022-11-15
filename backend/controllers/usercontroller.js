@@ -91,40 +91,4 @@ const userLogin = async (req, res) => {
     }
 }
 
-const getUser = async(req, res) => {
-    try {
-        const queryParams = req.query
-        let { Age ,Pincode ,VaccinationStatus,Dose } = queryParams
-        if (!queryParams) {
-            // return all products that are not deleted and sort them in ascending
-            let userDetail = await userModel.find().sort({ "price": 1 })
-            return res.status(200).send({ status: true, msg: 'all book list', data: userDetail })
-        }
-
-        let filter = { }
-
-        if (queryParams.Age) filter.Age = queryParams.Age
-        if (queryParams.Pincode) filter.Pincode = queryParams.Pincode
-        if(queryParams.VaccinationStatus == 1) filter.VaccinationStatus = await userModel.find({Dose : "first"}|| {Dose : "second"})
-
-    
-        const userFilter = await userModel.find(filter )
-
-
-
-        if (userFilter.length) {
-            return res.status(400).send({ status: true, count: userFilter.length, data: userFilter })
-        } else {
-            return res.status(404).send({ status: false, msg: "No user found" })
-        }
-
-
-    } catch (error) {
-        console.log(error)
-        return res.status(500).send({ status: false, msg: error.message })
-
-    }
-}
-
-
 module.exports = {regUser,userLogin,getUser}
