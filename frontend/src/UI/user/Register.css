@@ -6,8 +6,9 @@
     display:block;
     font-size: large;
     color: rgb(3, 0, 0);
-    padding: 2px;
+    padding: 5px;
     font-weight: bold;
+    margin-left: 15.5%;
     }
     
     .input{
@@ -34,8 +35,7 @@
     
     .error{
     display: block;
-    background-color: red;
-    color: white;
+    color: rgb(155, 6, 6);
     width: fit-content;
     height: 50px;
     padding: 5px;

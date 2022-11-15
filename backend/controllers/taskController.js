@@ -119,7 +119,19 @@ const deleteATask = async (req, res) => {
 
 const getAllTask = async (req, res) => {
     try {
-        const list = await taskModel.find()
+      let data = req.query
+      const {title,taskStatus,deadline,isExpired, createdBy, isDeleted} = data
+        console.log(data)
+        let filter = {
+            title ,
+        taskStatus :{$in :["pending", "completed","upcoming"]},
+        deadline,
+        isExpired,
+        createdBy,
+        isDeleted
+        }
+        console.log(filter.taskStatus)
+        const list = await taskModel.find(data)
         return res.status(200).send({ status: true,totalTask : list.length, Message: "List of all Tasks- ", list })
     } catch (error) {
         return res.status(500).send({ status: false, message: error.message })

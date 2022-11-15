@@ -48,108 +48,118 @@ const Regiter = () => {
   };
 
   // Handling the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
 
-      if (firstName === '' || lastName === '' || mobileNumber === '' || email === '' || password === '' || age === '') {
+      if (firstName === '' || lastName === '' || mobileNumber === '' || email === '' || password === '' || age === '')
         setError(true)
 
-        let res = await fetch("/regUser", {
-          method: "POST",
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            mobileNumber: mobileNumber,
-          }),
-        });
-        let resJson = await res.json();
-        if (res.status === 200) {
-          setName("");
-          setEmail("");
-          setMessage("User created successfully");
-          setSubmitted(true);
-          setError(false);
-        } else {
-          setMessage("Some error occured");
-        }
-      } catch (err) {
-        console.log(err);
+      let res = await fetch("regUser", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          mobileNumber,
+          email,
+          password,
+          age
 
-      
+        }),
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setFirstName("")
+        setLastName("")
+        setMobileNumber("")
+        setEmail("")
+        setPassword("")
+        setAge("")
+
+        successMessage("User created successfully");
+        setSubmitted(true);
+        console.log(resJson)
+        setError(false);
+      } else {
+        successMessage("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
     }
+
+  }
 
   // Showing success message
   const successMessage = () => {
-      return (
-        <div
-          className="success"
-          style={{
-            display: submitted ? '' : 'none',
-          }}>
-          <h2>User {firstName + " " + lastName} successfully registered!!</h2>
-        </div>
-      );
-    };
-
-    // Showing error message if error is true
-    const errorMessage = () => {
-      return (
-        <div
-          className="error"
-          style={{
-            display: error ? '' : 'none',
-          }}>
-          <h1>Please enter all the fields</h1>
-        </div>
-      );
-    };
-
     return (
-      <div className="form">
-        <div>
-          <h3>User Registration Form</h3>
-        </div>
-
-
-        <div className="messages">
-          {errorMessage()}
-          {successMessage()}
-        </div>
-
-        <form>
-          <ul>
-            <label className="label">First Name </label>
-            <input onChange={handleFirstName} className="input"
-              value={firstName} type="text" />
-          </ul><ul>
-            <label className="label">Last Name</label>
-            <input onChange={handleLastName} className="input"
-              value={lastName} type="text" />
-          </ul><ul>
-            <label className="label">Mobile Number</label>
-            <input onChange={handleMobileNumber} className="input"
-              value={mobileNumber} type="text" />
-          </ul><ul>
-            <label className="label">Email</label>
-            <input onChange={handleEmail} className="input"
-              value={email} type="email" />
-          </ul><ul>
-            <label className="label">Password</label>
-            <input onChange={handlePassword} className="input"
-              value={password} type="password" />
-          </ul><ul>
-            <label className="label">Age</label>
-            <input onChange={handleAge} className="input"
-              value={age} type="text" />
-          </ul>
-          <button onClick={handleSubmit} className="btn" type="submit">
-            Submit
-          </button>
-        </form>
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none',
+        }}>
+        <h2>User {firstName + " " + lastName} registered  successfully !!</h2>
       </div>
     );
-  }
+  };
 
-  export default Regiter
+  // Showing error message if error is true
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none',
+        }}>
+        <h1>Please enter all the fields</h1>
+      </div>
+    );
+  };
+
+  return (
+    <div className="form">
+      <div>
+        <h3>User Registration Form</h3>
+      </div>
+
+
+      <div className="messages">
+        {errorMessage()}
+        {successMessage()}
+      </div>
+
+      <form>
+        <ul>
+          <label className="label">First Name </label>
+          <input onChange={handleFirstName} className="input"
+            value={firstName} type="text" />
+        </ul><ul>
+          <label className="label">Last Name</label>
+          <input onChange={handleLastName} className="input"
+            value={lastName} type="text" />
+        </ul><ul>
+          <label className="label">Mobile Number</label>
+          <input onChange={handleMobileNumber} className="input"
+            value={mobileNumber} type="text" />
+        </ul><ul>
+          <label className="label">Email</label>
+          <input onChange={handleEmail} className="input"
+            value={email} type="email" />
+        </ul><ul>
+          <label className="label">Password</label>
+          <input onChange={handlePassword} className="input"
+            value={password} type="password" />
+        </ul><ul>
+          <label className="label">Age</label>
+          <input onChange={handleAge} className="input"
+            value={age} type="text" />
+        </ul>
+        <button onClick={handleSubmit} className="btn" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default Regiter

@@ -1,11 +1,11 @@
 import React ,{useState , useEffect} from "react";
 import axios from "axios"
 
-const GetUser=() => {
+const GetAllTask=() => {
     const [users, setUsers] = useState([]);
   
     useEffect(() => {
-      axios.get("/getUser").then((res) => {
+      axios.get("https://localhost:3000/getAllTask").then((res) => {
         setUsers(res.data);
       });
     }, []);
@@ -20,4 +20,4 @@ const GetUser=() => {
     );
   }
 
-  export default GetUser
+  export default GetAllTask

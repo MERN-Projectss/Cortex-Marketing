@@ -7,7 +7,7 @@ const taskSchema = new Schema({
 
     taskDescription: { type: String, required: true, trim: true ,unique :true },
 
-    taskStatus: { type: String, enums: ["pending", "completed","upcoming", "deleted"], trim: true },
+    taskStatus: { type: String, enums: ["pending", "completed","upcoming"], trim: true },
 
     deadline: { type: String, default: moment().add(24,'hours').format('LLLL') },
 
